@@ -45,6 +45,7 @@ namespace challenge_calculator
         {
             List<int> numbers = new List<int>();
 
+            // Loop thru each part of the the string, to check the elements if they're numbers we accept.
             foreach (string element in stringNumbers) {
                 int number;
                 
@@ -57,6 +58,8 @@ namespace challenge_calculator
 
                 if (number < 0)
                     throw new ArgumentException($"Cannot use negative numbers. {number} is invalid.");
+                else if(number > 1000)
+                    number = 0;
 
                 numbers.Add(number);
             }

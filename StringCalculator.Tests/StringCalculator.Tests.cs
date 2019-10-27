@@ -17,7 +17,7 @@ namespace challenge_calculator
         public void AddStringTest()
         {
             Assert.Equal(20, _stringCalculator.AddString("20"));
-            Assert.Equal(5001, _stringCalculator.AddString("1,5000"));
+            Assert.Equal(1, _stringCalculator.AddString("1,5000"));
             Assert.Equal(7, _stringCalculator.AddString("4,3"));
         }
 
@@ -51,6 +51,14 @@ namespace challenge_calculator
             var exception = Assert.Throws<ArgumentException>(() => _stringCalculator.AddString("-1, 4"));
 
             Assert.Equal("Cannot use negative numbers. -1 is invalid.", exception.Message);
+        }
+
+        [Fact]
+        public void LargeNumbersTest()
+        {
+            Assert.Equal(8, _stringCalculator.AddString("2, 1001, 6"));
+            Assert.Equal(0, _stringCalculator.AddString("5000, 1001"));
+            Assert.Equal(2, _stringCalculator.AddString("2, 7000, 10000"));
         }
     }
 }
