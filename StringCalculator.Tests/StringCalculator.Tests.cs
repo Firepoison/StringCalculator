@@ -17,7 +17,7 @@ namespace challenge_calculator
         public void AddStringTest()
         {
             Assert.Equal(20, _stringCalculator.AddString("20"));
-            Assert.Equal(5001, _stringCalculator.AddString("1,5001"));
+            Assert.Equal(5001, _stringCalculator.AddString("1,5000"));
             Assert.Equal(1, _stringCalculator.AddString("4,-3"));
         }
 
