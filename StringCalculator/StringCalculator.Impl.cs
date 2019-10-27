@@ -11,7 +11,7 @@ namespace challenge_calculator
 
             // Continuous loop to test more easily on the "frontend"
             while(true) {
-                Console.WriteLine("\nPlease enter numbers you wish to add, separated by commas: ");
+                Console.WriteLine("\nPlease enter numbers you wish to add, separated by commas or a new line: ");
 
                 string userInput = Console.ReadLine();
                 if(userInput.ToUpper() == "Q")
@@ -28,8 +28,9 @@ namespace challenge_calculator
         // Split the string across the comma, and try to add the number to our "sum" that we will return.
         public int AddString(string inputString)
         {
+            char[] delimiters = {',', '\n'};
             int sum = 0;
-            string[] numbers = inputString.Split(","); 
+            string[] numbers = inputString.Split(delimiters); 
 
             foreach (string number in numbers) {
                 try { 

@@ -36,5 +36,13 @@ namespace challenge_calculator
             Assert.Equal(10, _stringCalculator.AddString("1,2,4,3"));
             Assert.Equal(60, _stringCalculator.AddString("blah,yes, fantastic, 30, fun, 30    "));
         }
+
+        [Fact]
+        public void ManyDelimitersTest()
+        {
+            Assert.Equal(6, _stringCalculator.AddString("1\n2,3"));
+            Assert.Equal(13, _stringCalculator.AddString("1\n2\n10"));
+            Assert.Equal(4, _stringCalculator.AddString("1\n,3"));
+        }
     }
 }
