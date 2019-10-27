@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace challenge_calculator
 {
@@ -32,16 +34,34 @@ namespace challenge_calculator
             int sum = 0;
             string[] numbers = inputString.Split(delimiters); 
 
-            foreach (string number in numbers) {
-                try { 
-                    sum += Convert.ToInt32(number); 
-                }
-                catch(FormatException) { 
-                    sum += 0; 
-                }
-            }
+            List<int> validNumbers = this.ValidateNumbers(numbers);
+            sum = validNumbers.Sum();
 
             return sum;
+        }
+
+        // Check to see each number inside our new string array is "valid".
+        public List<int> ValidateNumbers(string[] stringNumbers)
+        {
+            List<int> numbers = new List<int>();
+
+            foreach (string element in stringNumbers) {
+                int number;
+                
+                try { 
+                    number = Convert.ToInt32(element);    
+                }
+                catch(FormatException) { 
+                    number = 0;
+                }
+
+                if (number < 0)
+                    throw new ArgumentException($"Cannot use negative numbers. {number} is invalid.");
+
+                numbers.Add(number);
+            }
+
+            return numbers;
         }
     }
 }
