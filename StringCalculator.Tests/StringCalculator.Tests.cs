@@ -26,6 +26,15 @@ namespace challenge_calculator
         {
             Assert.Equal(0, _stringCalculator.AddString(""));
             Assert.Equal(5, _stringCalculator.AddString("5,tytyt"));
+            Assert.Equal(0, _stringCalculator.AddString("      "));
+        }
+
+        [Fact]
+        public void ManyNumbersTest()
+        {
+            Assert.Equal(78, _stringCalculator.AddString("1,2,3,4,5,6,7,8,9,10,11,12"));
+            Assert.Equal(10, _stringCalculator.AddString("1,2,4,3"));
+            Assert.Equal(60, _stringCalculator.AddString("blah,yes, fantastic, 30, fun, 30    "));
         }
     }
 }
