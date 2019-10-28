@@ -67,5 +67,12 @@ namespace challenge_calculator
             Assert.Equal(7, _stringCalculator.AddString("//#\n2#5"));
             Assert.Equal(66, _stringCalculator.AddString("//[***]\n11***22***33"));
         }
+
+        [Fact]
+        public void MultiCustomDelimiterTest()
+        {
+            Assert.Equal(110, _stringCalculator.AddString("//[*][!!][r9r]\n11r9r22*hh*33!!44"));
+            Assert.Equal(206, _stringCalculator.AddString("//[*][!!][+]\n22*hh+33!!50, 101"));
+        }
     }
 }

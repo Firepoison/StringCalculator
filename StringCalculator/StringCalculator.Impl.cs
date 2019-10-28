@@ -57,20 +57,24 @@ namespace challenge_calculator
                 int delimiterSectionIndex = inputString.IndexOf("\n") - 1;
                 convertedInputString = inputString.Substring(delimiterSectionIndex);
 
-                if (inputString[2] == '[')
+                
+                while (inputString[2] != '\n')
                 {
-                    int delimiterEndIndex = inputString.IndexOf(']');
-                    newDelimiter = inputString.Substring(3, delimiterEndIndex - 3);
-                    delimiters.Add(newDelimiter);
+                    if (inputString[2] == '[')
+                    {
+                        int delimiterEndIndex = inputString.IndexOf(']');
+                        newDelimiter = inputString.Substring(3, delimiterEndIndex - 3);
+                        delimiters.Add(newDelimiter);
 
-                    inputString = inputString.Remove(2,newDelimiter.Length + 2);
-                }
-                else
-                {
-                    newDelimiter = inputString[delimiterSectionIndex].ToString();
-                    delimiters.Add(newDelimiter);
+                        inputString = inputString.Remove(2,newDelimiter.Length + 2);
+                    }
+                    else
+                    {
+                        newDelimiter = inputString[delimiterSectionIndex].ToString();
+                        delimiters.Add(newDelimiter);
 
-                    inputString = inputString.Remove(2, 1);
+                        inputString = inputString.Remove(2, 1);
+                    }
                 }
             }
 
