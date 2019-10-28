@@ -7,6 +7,6 @@ namespace challenge_calculator
     {
         int AddString(String inputString);
         List<int> ValidateNumbers(String[] stringNumbers);
-        char CreateDelimiter(String inputString);
+        String CreateDelimiter(String inputString);
     } 
 }

@@ -31,17 +31,12 @@ namespace challenge_calculator
         // Split the string across the comma, and try to add the number to our "sum" that we will return.
         public int AddString(string inputString)
         {
-            List<char> delimiters = new List<char>(){',', '\n'};
             int sum = 0;
 
-            // Check if we are getting a custom delimiter, and cut that part of the string off entirely.
-            if (inputString.StartsWith(delimiterNotation))
-            {
-                delimiters.Add(this.CreateDelimiter(inputString));
-                int stringCutPoint = inputString.IndexOf("\n") + 1;
-                inputString = inputString.Substring(stringCutPoint);
-            }
-            string[] numbers = inputString.Split(delimiters.ToArray()); 
+            // Check if we are getting a custom delimiter.
+            inputString = this.CreateDelimiter(inputString);
+
+            string[] numbers = inputString.Split(","); 
 
             List<int> validNumbers = this.ValidateNumbers(numbers);
             sum = validNumbers.Sum();
@@ -49,11 +44,42 @@ namespace challenge_calculator
             return sum;
         }
 
-        // Check for custo mdelimiters by "//" and pass them as delimiters for mathmatic functions to use.
-        public char CreateDelimiter(string inputString)
-        {         
-            int delimiterIndex = inputString.IndexOf("\n") - 1;
-            return inputString[delimiterIndex];
+        // Check for custom delimiters by "//" and pass them as delimiters for mathematic functions to use.
+        public String CreateDelimiter(string inputString)
+        {   
+            List<String> delimiters = new List<String>() {"\n"};
+            string convertedInputString = inputString;
+
+            
+            if (inputString.StartsWith(delimiterNotation))
+            {
+                string newDelimiter = "";
+                int delimiterSectionIndex = inputString.IndexOf("\n") - 1;
+                convertedInputString = inputString.Substring(delimiterSectionIndex);
+
+                if (inputString[2] == '[')
+                {
+                    int delimiterEndIndex = inputString.IndexOf(']');
+                    newDelimiter = inputString.Substring(3, delimiterEndIndex - 3);
+                    delimiters.Add(newDelimiter);
+
+                    inputString = inputString.Remove(2,newDelimiter.Length + 2);
+                }
+                else
+                {
+                    newDelimiter = inputString[delimiterSectionIndex].ToString();
+                    delimiters.Add(newDelimiter);
+
+                    inputString = inputString.Remove(2, 1);
+                }
+            }
+
+            foreach (string delimiter in delimiters)
+            {
+                convertedInputString = convertedInputString.Replace(delimiter, ",");
+            }
+
+            return convertedInputString;
         }
 
         // Check to see each number inside our new string array is "valid".

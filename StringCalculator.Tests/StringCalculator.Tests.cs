@@ -65,6 +65,7 @@ namespace challenge_calculator
         public void CustomDelimiterTest()
         {
             Assert.Equal(7, _stringCalculator.AddString("//#\n2#5"));
+            Assert.Equal(66, _stringCalculator.AddString("//[***]\n11***22***33"));
         }
     }
 }
