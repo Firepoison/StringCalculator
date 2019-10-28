@@ -13,7 +13,7 @@ namespace challenge_calculator
 
             // Continuous loop to test more easily on the "frontend"
             while(true) {
-                Console.WriteLine("\nPlease enter numbers you wish to add, separated by commas or a new line: ");
+                Console.WriteLine("\nPlease enter numbers you wish to add, separated by commas or a new line. \nIf you would like to set a custom separator, please use // followed by the delimiter you wish: ");
 
                 string userInput = Console.ReadLine();
                 if(userInput.ToUpper() == "Q")
@@ -23,21 +23,37 @@ namespace challenge_calculator
                 Console.WriteLine($"Answer to {userInput} is {answer}.");
             }
         }
-    }
+    } 
 
     public class StringCalculator : ICalculator
     {
+        private static string delimiterNotation = "//";
         // Split the string across the comma, and try to add the number to our "sum" that we will return.
         public int AddString(string inputString)
         {
-            char[] delimiters = {',', '\n'};
+            List<char> delimiters = new List<char>(){',', '\n'};
             int sum = 0;
-            string[] numbers = inputString.Split(delimiters); 
+
+            // Check if we are getting a custom delimiter, and cut that part of the string off entirely.
+            if (inputString.StartsWith(delimiterNotation))
+            {
+                delimiters.Add(this.CreateDelimiter(inputString));
+                int stringCutPoint = inputString.IndexOf("\n") + 1;
+                inputString = inputString.Substring(stringCutPoint);
+            }
+            string[] numbers = inputString.Split(delimiters.ToArray()); 
 
             List<int> validNumbers = this.ValidateNumbers(numbers);
             sum = validNumbers.Sum();
 
             return sum;
+        }
+
+        // Check for custo mdelimiters by "//" and pass them as delimiters for mathmatic functions to use.
+        public char CreateDelimiter(string inputString)
+        {         
+            int delimiterIndex = inputString.IndexOf("\n") - 1;
+            return inputString[delimiterIndex];
         }
 
         // Check to see each number inside our new string array is "valid".

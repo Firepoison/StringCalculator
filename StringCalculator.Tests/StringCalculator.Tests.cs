@@ -60,5 +60,11 @@ namespace challenge_calculator
             Assert.Equal(0, _stringCalculator.AddString("5000, 1001"));
             Assert.Equal(2, _stringCalculator.AddString("2, 7000, 10000"));
         }
+
+        [Fact]
+        public void CustomDelimiterTest()
+        {
+            Assert.Equal(7, _stringCalculator.AddString("//#\n2#5"));
+        }
     }
 }
